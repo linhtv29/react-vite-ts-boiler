@@ -1,50 +1,67 @@
-import { Menu } from "@headlessui/react";
+import { Menu, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   AcademicCapIcon,
   PencilIcon,
   UsersIcon,
+  ChevronDownIcon,
 } from "@heroicons/react/24/solid";
 import { Fragment } from "react";
 
+interface NavbarProps {
+  toggleSideMenu: () => void 
+}
+
 const links = [
-  { href: "/account-settings", label: "Account settings" },
-  { href: "/support", label: "Support" },
-  { href: "/license", label: "License" },
-  { href: "/sign-out", label: "Sign out" },
+  { href: "/my-profile", label: "My profile" },
+  { href: "/settings", label: "Settings" },
 ];
-const Navbar = () => {
+const Navbar = (props: NavbarProps) => {
+  const {toggleSideMenu} = props
   return (
-    <div className="px-6 bg-[#2196f3] text-white">
+    <div className="px-3 bg-[#2196f3] text-white">
       <div className="w-full min-h-[64px] flex items-center justify-between m-auto">
         <div className="flex">
-          <Bars3Icon className="h-6 w-6 sm:hidden" />
-          <AcademicCapIcon className="h-8 w-10 ml-6" />
+          <Bars3Icon onClick={() => toggleSideMenu()} className="h-6 w-6 sm:hidden cursor-pointer" />
         </div>
-        <Menu>
-          <Menu.Button>
+        <Menu as="div" className="relative">
+          <Menu.Button className="inline-flex justify-center items-center">
             <img
-              className="h-8 rounded-full"
+              className="h-8 rounded-full mr-1"
               src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/bc/bc8373bc936f15e139d4e7cfc1afc7c5ef22b48d_full.jpg"
               alt=""
             />
+            <div className="hidden md:block">User name</div>
+            <ChevronDownIcon className="ml-1 h-5 w-5" />
           </Menu.Button>
-          <Menu.Items>
-            {links.map((link) => (
-              <Menu.Item key={link.href} as={Fragment}>
-                {({ active }) => (
-                  <div
-                    className={`${
-                      active ? "bg-blue-500 text-white" : "bg-white text-black"
-                    }`}
-                  >
-                    <UsersIcon className="h-6 w-6" />
-                    <span>{link.label}</span>
-                  </div>
-                )}
-              </Menu.Item>
-            ))}
-          </Menu.Items>
+          <Transition
+           as={Fragment}
+           enter="transition-opacity duration-75"
+           enterFrom="transform opacity-0 scale-10"
+           enterTo="transform opacity-100 scale-100"
+           leave="transition ease-in duration-150"
+           leaveFrom="opacity-100"
+           leaveTo="opacity-0"
+          >
+            <Menu.Items className="absolute right-0 rounded w-56 shadow">
+              {links.map((link) => (
+                <Menu.Item key={link.href} as={Fragment}>
+                  {({ active }) => (
+                    <div
+                      className={`${
+                        active
+                          ? "bg-blue-500 text-white"
+                          : "bg-white text-black"
+                      } cursor-pointer inline-flex w-full px-2 py-2 rounded`}
+                    >
+                      <UsersIcon className="h-6 w-6" />
+                      <span className="ml-1">{link.label}</span>
+                    </div>
+                  )}
+                </Menu.Item>
+              ))}
+            </Menu.Items>
+          </Transition>
         </Menu>
       </div>
     </div>
