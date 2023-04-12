@@ -1,9 +1,9 @@
 import { Router, useRoutes } from "react-router-dom";
 import { protectedRoutes } from "./protectedRoutes";
+import { publicRoutes } from "./publicRoutes";
 
 const AppRoutes = () => {
-  const routes = protectedRoutes;
-  const element = useRoutes([...routes]);
+  const element = useRoutes([...protectedRoutes, ...publicRoutes]);
   return element;
 };
 

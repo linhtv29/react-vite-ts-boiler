@@ -19,10 +19,10 @@ const links = [
 const Navbar = (props: NavbarProps) => {
   const {toggleSideMenu} = props
   return (
-    <div className="px-3 bg-[#2196f3] text-white">
-      <div className="w-full min-h-[64px] flex items-center justify-between m-auto">
+    <div className="px-3 bg-[#2196f3] text-white absolute top-0 left-0 w-full">
+      <div className="w-full h-14 flex items-center justify-between m-auto">
         <div className="flex">
-          <Bars3Icon onClick={() => toggleSideMenu()} className="h-6 w-6 sm:hidden cursor-pointer" />
+          <Bars3Icon onClick={() => toggleSideMenu()} className="h-6 w-6 cursor-pointer" />
         </div>
         <Menu as="div" className="relative">
           <Menu.Button className="inline-flex justify-center items-center">
