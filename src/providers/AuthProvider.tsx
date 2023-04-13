@@ -7,19 +7,20 @@ type AuthProviderProps = {
 };
 
 const isPublic = (path: string) => publicPaths.includes(path);
-const isAuth = localStorage.getItem("user")
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const location = useLocation();
   const navigate = useNavigate();
   const currentPath = location.pathname;
 
   useEffect(() => {
+    const isAuth = localStorage.getItem("email");
     if (!isPublic(currentPath) && !isAuth) {
+      console.log("TCL: AuthProvider -> currentPath", currentPath);
       return navigate("/login", {
         state: { prePath: location.pathname },
       });
     }
-  }, []);
+  }, [location]);
 
   return <div>{children}</div>;
 };

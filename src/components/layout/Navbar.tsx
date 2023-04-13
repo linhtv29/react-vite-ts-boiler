@@ -7,22 +7,32 @@ import {
   ChevronDownIcon,
 } from "@heroicons/react/24/solid";
 import { Fragment } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface NavbarProps {
-  toggleSideMenu: () => void 
+  toggleSideMenu: () => void;
 }
 
 const links = [
   { href: "/my-profile", label: "My profile" },
-  { href: "/settings", label: "Settings" },
+  { href: "", label: "Logout" },
 ];
 const Navbar = (props: NavbarProps) => {
-  const {toggleSideMenu} = props
+  const { toggleSideMenu } = props;
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.setItem("email", "");
+    navigate("/login");
+  }
   return (
     <div className="px-3 bg-[#2196f3] text-white absolute top-0 left-0 w-full">
       <div className="w-full h-14 flex items-center justify-between m-auto">
         <div className="flex">
-          <Bars3Icon onClick={() => toggleSideMenu()} className="h-6 w-6 cursor-pointer" />
+          <Bars3Icon
+            onClick={() => toggleSideMenu()}
+            className="h-6 w-6 cursor-pointer"
+          />
         </div>
         <Menu as="div" className="relative">
           <Menu.Button className="inline-flex justify-center items-center">
@@ -35,31 +45,49 @@ const Navbar = (props: NavbarProps) => {
             <ChevronDownIcon className="ml-1 h-5 w-5" />
           </Menu.Button>
           <Transition
-           as={Fragment}
-           enter="transition-opacity duration-75"
-           enterFrom="transform opacity-0 scale-10"
-           enterTo="transform opacity-100 scale-100"
-           leave="transition ease-in duration-150"
-           leaveFrom="opacity-100"
-           leaveTo="opacity-0"
+            as={Fragment}
+            enter="transition-opacity duration-75"
+            enterFrom="transform opacity-0 scale-10"
+            enterTo="transform opacity-100 scale-100"
+            leave="transition ease-in duration-150"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
             <Menu.Items className="absolute right-0 rounded w-56 shadow">
-              {links.map((link) => (
-                <Menu.Item key={link.href} as={Fragment}>
-                  {({ active }) => (
-                    <div
-                      className={`${
-                        active
-                          ? "bg-blue-500 text-white"
-                          : "bg-white text-black"
-                      } cursor-pointer inline-flex w-full px-2 py-2 rounded`}
-                    >
-                      <UsersIcon className="h-6 w-6" />
-                      <span className="ml-1">{link.label}</span>
-                    </div>
-                  )}
-                </Menu.Item>
-              ))}
+              {links.map((link) =>
+                link.label == "Logout" ? (
+                  <Menu.Item key={link.href} as={Fragment}>
+                    {({ active }) => (
+                      <div
+                        className={`${
+                          active
+                            ? "bg-blue-500 text-white"
+                            : "bg-white text-black"
+                        } cursor-pointer inline-flex w-full px-2 py-2 rounded`}
+                        onClick={() => logout() }
+                      >
+                        <UsersIcon className="h-6 w-6" />
+                        <span className="ml-1">{link.label}</span>
+                      </div>
+                    )}
+                  </Menu.Item>
+                ) : (
+                  <Menu.Item key={link.href} as={Fragment}>
+                    {({ active }) => (
+                      <div
+                        className={`${
+                          active
+                            ? "bg-blue-500 text-white"
+                            : "bg-white text-black"
+                        } cursor-pointer inline-flex w-full px-2 py-2 rounded`}
+                      >
+                        <UsersIcon className="h-6 w-6" />
+                        <span className="ml-1">{link.label}</span>
+                      </div>
+                    )}
+                  </Menu.Item>
+                )
+              )}
             </Menu.Items>
           </Transition>
         </Menu>
