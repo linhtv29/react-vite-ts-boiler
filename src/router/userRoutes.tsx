@@ -1,4 +1,5 @@
-import LayoutAdmin from "../components/layout/LayoutAdmin";
+import MainLayout from "../components/layout/MainLayout";
+import { Profile } from "@/features/profile/routes";
 
 const Test1 = () => {
   return <div className="text-red-500">test 1</div>;
@@ -9,10 +10,10 @@ const Test2 = () => {
 const Test3 = () => {
   return <div className="text-yellow-500">test 3</div>;
 };
-export const protectedRoutes = [
+export const userRoutes = [
   {
     path: "/",
-    element: <LayoutAdmin />,
+    element: <MainLayout />,
     children: [
       {
         path: "",
@@ -20,7 +21,7 @@ export const protectedRoutes = [
       },
       {
         path: "profile",
-        element: <Test2 />,
+        element: <Profile />
       },
       {
         path: "courses",

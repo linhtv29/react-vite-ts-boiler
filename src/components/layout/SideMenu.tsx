@@ -4,7 +4,7 @@ import {
   BookOpenIcon,
   ChevronUpIcon,
 } from "@heroicons/react/24/solid";
-import { Disclosure } from "@headlessui/react";
+import { Disclosure, Transition } from "@headlessui/react";
 import { NavLink, useLocation } from "react-router-dom";
 
 type SideMenuProps = {
@@ -55,9 +55,9 @@ const SideMenu = (props: SideMenuProps) => {
               link.children ? (
                 <Disclosure key={link.title}>
                   {({ open }) => (
-                    <>
+                    <div className={`${open ? "bg-gray-900" : ""}`}>
                       <Disclosure.Button className="w-full">
-                        <div className="flex mb-2 px-3 h-10 items-center justify-between">
+                        <div className="flex py-2 px-3 h-10 items-center justify-between">
                           <div className="flex items-center">
                             <link.icon className="h-5 v-5 mr-3" />
                             <span>{link.title}</span>
@@ -69,21 +69,35 @@ const SideMenu = (props: SideMenuProps) => {
                           />
                         </div>
                       </Disclosure.Button>
-                      <Disclosure.Panel>
-                        {link.children.map((child) => (
-                          <NavLink
-                            to={child.to}
-                            key={child.to}
-                            state={{ location }}
-                          >
-                            <div className="flex mb-2 pl-5 h-10 items-center">
-                              <child.icon className="h-5 v-5 mr-3" />
-                              <span>{child.title}</span>
-                            </div>
-                          </NavLink>
-                        ))}
-                      </Disclosure.Panel>
-                    </>
+                      <Transition
+												show={open}
+                        className="transition-all duration-500 overflow-hidden"
+                        enterFrom="transform opacity-0 max-h-0"
+                        enterTo="transform opacity-100 max-h-96"
+                        leaveFrom="transform opacity-100 max-h-96"
+                        leaveTo="transform opacity-0 max-h-0"
+                      >
+                        <Disclosure.Panel static>
+                          {link.children.map((child) => (
+                            <NavLink
+                              to={child.to}
+                              key={child.to}
+                              state={{ location }}
+                              className={({ isActive }) =>
+                                `${
+                                  isActive ? "font-bold text-white" : ""
+                                } hover:font-bold`
+                              }
+                            >
+                              <div className="flex py-2 pl-5 h-10 items-center">
+                                <child.icon className="h-5 v-5 mr-3" />
+                                <span>{child.title}</span>
+                              </div>
+                            </NavLink>
+                          ))}
+                        </Disclosure.Panel>
+                      </Transition>
+                    </div>
                   )}
                 </Disclosure>
               ) : (
@@ -95,7 +109,7 @@ const SideMenu = (props: SideMenuProps) => {
                     isActive ? "font-bold text-white [&>div]:bg-gray-900" : ""
                   }
                 >
-                  <div className="flex mb-2 pl-3 h-10 items-center">
+                  <div className="flex py-2 pl-3 h-10 items-center">
                     <link.icon className="h-5 v-5 mr-3" />
                     <span>{link.title}</span>
                   </div>

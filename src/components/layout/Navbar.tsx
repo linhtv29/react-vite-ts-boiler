@@ -26,7 +26,7 @@ const Navbar = (props: NavbarProps) => {
     navigate("/login");
   }
   return (
-    <div className="px-3 bg-[#2196f3] text-white absolute top-0 left-0 w-full">
+    <div className="px-3 bg-sky-800 text-white absolute top-0 left-0 w-full">
       <div className="w-full h-14 flex items-center justify-between m-auto">
         <div className="flex">
           <Bars3Icon
@@ -53,7 +53,7 @@ const Navbar = (props: NavbarProps) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Menu.Items className="absolute right-0 rounded w-56 shadow">
+            <Menu.Items className="absolute right-0 rounded w-56 shadow bg-white p-2">
               {links.map((link) =>
                 link.label == "Logout" ? (
                   <Menu.Item key={link.href} as={Fragment}>
@@ -61,7 +61,7 @@ const Navbar = (props: NavbarProps) => {
                       <div
                         className={`${
                           active
-                            ? "bg-blue-500 text-white"
+                            ? "bg-sky-500 text-white"
                             : "bg-white text-black"
                         } cursor-pointer inline-flex w-full px-2 py-2 rounded`}
                         onClick={() => logout() }
@@ -77,7 +77,7 @@ const Navbar = (props: NavbarProps) => {
                       <div
                         className={`${
                           active
-                            ? "bg-blue-500 text-white"
+                            ? "bg-sky-500 text-white"
                             : "bg-white text-black"
                         } cursor-pointer inline-flex w-full px-2 py-2 rounded`}
                       >
