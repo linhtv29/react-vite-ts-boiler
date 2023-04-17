@@ -1,6 +1,7 @@
 import { Button } from "@/components/Elements/Button";
 import { Form, InputField, InputPhoto } from "@/components/Form";
 import { useState } from "react";
+import * as z from "zod";
 
 export type ProfileValues = {
   name: string;
@@ -8,6 +9,12 @@ export type ProfileValues = {
   phone: number;
   avatar: File | string;
 };
+
+const schema = z.object({
+  email: z.string().min(1, "Required"),
+  name: z.string().min(1, "Required"),
+  phone: z.string().min(1, "Required"),
+});
 
 export const Profile = () => {
   const [fullName, setFullName] = useState<string | number>();
@@ -27,9 +34,9 @@ export const Profile = () => {
       <div className="bg-white p-5 divide-y divide-sky-900">
         <Form<ProfileValues>
           onSubmit={async (values) => {
-						console.log("TCL: Profile -> values", values)
             // onSuccess();
           }}
+          schema={schema}
         >
           {({ register, formState: { errors }, setValue }) => (
             <>
@@ -39,8 +46,8 @@ export const Profile = () => {
                   // required: "Please select your avatar",
                 })}
                 error={errors.avatar}
-								name="avatar"
-								setValue={setValue}
+                name="avatar"
+                setValue={setValue}
               />
               <InputField
                 type="text"
@@ -49,6 +56,7 @@ export const Profile = () => {
                 className="lg:w-1/2"
                 onUpdateVal={updateName}
                 isRequired
+                error={errors.name}
               />
               <InputField
                 type="email"
@@ -57,11 +65,13 @@ export const Profile = () => {
                 registration={register("email")}
                 onUpdateVal={updateEmail}
                 isRequired
+                error={errors.email}
               />
               <InputField
                 type="number"
                 label="Phone Number"
                 className="lg:w-1/2"
+                error={errors.phone}
                 registration={register("phone")}
                 isRequired
               />
