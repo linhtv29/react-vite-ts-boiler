@@ -9,12 +9,14 @@ type InputFieldProps = FieldWrapperPassThroughProps & {
   registration: Partial<UseFormRegisterReturn>;
   value?: string;
   onUpdateVal?: (value: string | number) => void;
+  classLabel?: string;
+  isRequired?: boolean;
 };
 
 export const InputField = (props: InputFieldProps) => {
-  const { type = "text", label, value, onUpdateVal, className, registration, error } = props;
+  const { type = "text", label, value, onUpdateVal, className, registration, error, classLabel, isRequired } = props;
   return (
-    <FieldWrapper label={label} error={error}>
+    <FieldWrapper label={label} error={error} className={classLabel} isRequired={isRequired}>
       <input
         type={type}
         className={clsx(
