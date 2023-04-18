@@ -14,9 +14,11 @@ const schema = z.object({
   email: z.string().min(1, "Required"),
   name: z.string().min(1, "Required"),
   phone: z.string().min(1, "Required"),
-  avatar: z.any().refine((file) => file instanceof File || typeof file == 'string', {
-    message: "Avatar is required",
-  }),
+  avatar: z
+    .any()
+    .refine((file) => file instanceof File || typeof file == "string", {
+      message: "Avatar is required",
+    }),
 });
 
 export const Profile = () => {
@@ -24,12 +26,11 @@ export const Profile = () => {
   const [email, setEmail] = useState<string | number>();
   const updateName = (newName: string | number) => setFullName(newName);
   const updateEmail = (newName: string | number) => setEmail(newName);
-  const option = {
-    defaultValues: {
-      name: "hi",
-      email: "bar",
-      phone: "boon",
-    },
+  const defaultValues = {
+    name: "fool",
+    email: "bar@gbar.com",
+    phone: 369232329,
+    avatar: "string",
   };
   return (
     <div>
@@ -40,6 +41,7 @@ export const Profile = () => {
             // onSuccess();
           }}
           schema={schema}
+          defaultValues={defaultValues}
         >
           {({ register, formState: { errors }, setValue }) => (
             <>

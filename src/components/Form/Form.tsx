@@ -10,6 +10,7 @@ type FormProps<TFormValues, Schema> = {
   options?: UseFormProps<TFormValues>;
   id?: string;
   schema?: Schema;
+  defaultValues?: any;
 };
 
 export const Form = <
@@ -22,10 +23,12 @@ export const Form = <
   options,
   id,
   schema,
+  defaultValues
 }: FormProps<TFormValues, Schema>) => {
   const methods = useForm<TFormValues>({
     ...options,
     resolver: schema && zodResolver(schema),
+    defaultValues
   });
   return (
     <form
