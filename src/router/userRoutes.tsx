@@ -1,6 +1,7 @@
 import MainLayout from "../components/layout/MainLayout";
 import { Profile } from "@/features/profile/routes";
 import { Dashboard } from "@/features/dashboard/routes";
+import { CoursesList } from "@/features/admin/coursesManager/routes";
 
 const Test1 = () => {
   return <div className="text-red-500">test 1</div>;
@@ -25,16 +26,20 @@ export const userRoutes = [
         element: <Profile />,
       },
       {
-        path: "courses",
-        element: <Test3 />,
+        path: "user",
         children: [
           {
-            path: "course1",
-            element: <Test1 />,
+            path: "",
+            element: <Profile />,
           },
+        ],
+      },
+      {
+        path: "courses",
+        children: [
           {
-            path: "course2",
-            element: <Test2 />,
+            path: "",
+            element: <CoursesList />
           },
         ],
       },

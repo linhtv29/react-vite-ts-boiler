@@ -10,9 +10,11 @@ import { NavLink, useLocation } from "react-router-dom";
 type SideMenuProps = {
   isOpenSideMenu: boolean;
 };
-const navMenus = [
+
+type RouteType = Record<string, any>
+const clientMenus = [
   {
-    to: "/",
+    to: "",
     title: "Dashboard",
     icon: ComputerDesktopIcon,
   },
@@ -23,12 +25,12 @@ const navMenus = [
   },
   {
     to: "courses",
-    title: "Courses",
+    title: "My Courses",
     icon: BookOpenIcon,
     children: [
       {
-        to: "courses/course1",
-        title: "Course1",
+        to: "courses",
+        title: "Courses List",
         icon: BookOpenIcon,
       },
       {
@@ -39,9 +41,46 @@ const navMenus = [
     ],
   },
 ];
+const adminMenus = [
+  {
+    to: "/admin/dashboard",
+    title: "Dashboard",
+    icon: ComputerDesktopIcon,
+  },
+  {
+    to: "profile",
+    title: "Profile",
+    icon: UserIcon,
+  },
+  {
+    title: "Courses",
+    icon: BookOpenIcon,
+    children: [
+      {
+        to: "courses",
+        title: "Courses List",
+        icon: BookOpenIcon,
+      },
+      {
+        to: "courses/course2",
+        title: "Quiz List",
+        icon: BookOpenIcon,
+      },
+    ],
+  },
+];
+
+let navMenus: RouteType[];
+
 const SideMenu = (props: SideMenuProps) => {
   const { isOpenSideMenu } = props;
   const location = useLocation();
+  const isAdmin = location.pathname.startsWith("/admin");
+  if (isAdmin) {
+    navMenus = adminMenus;
+  } else {
+    navMenus = clientMenus;
+  }
   return (
     <div
       className={`${
@@ -51,7 +90,7 @@ const SideMenu = (props: SideMenuProps) => {
       <div className="flex w-60">
         <div className="bg-gray-700 flex-col flex-1 h-screen">
           <div className="flex-1 text-slate-300 py-3">
-            {navMenus.map((link) =>
+            {navMenus.map((link: RouteType) =>
               link.children ? (
                 <Disclosure key={link.title}>
                   {({ open }) => (
@@ -70,7 +109,7 @@ const SideMenu = (props: SideMenuProps) => {
                         </div>
                       </Disclosure.Button>
                       <Transition
-												show={open}
+                        show={open}
                         className="transition-all duration-500 overflow-hidden"
                         enterFrom="transform opacity-0 max-h-0"
                         enterTo="transform opacity-100 max-h-96"
@@ -78,7 +117,7 @@ const SideMenu = (props: SideMenuProps) => {
                         leaveTo="transform opacity-0 max-h-0"
                       >
                         <Disclosure.Panel static>
-                          {link.children.map((child) => (
+                          {link.children.map((child: RouteType) => (
                             <NavLink
                               to={child.to}
                               key={child.to}
