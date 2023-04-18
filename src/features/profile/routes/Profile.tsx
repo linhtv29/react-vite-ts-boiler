@@ -14,7 +14,7 @@ const schema = z.object({
   email: z.string().min(1, "Required"),
   name: z.string().min(1, "Required"),
   phone: z.string().min(1, "Required"),
-  avatar: z.any().refine((file) => file instanceof File, {
+  avatar: z.any().refine((file) => file instanceof File || typeof file == 'string', {
     message: "Avatar is required",
   }),
 });
