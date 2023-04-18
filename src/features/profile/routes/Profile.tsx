@@ -14,6 +14,9 @@ const schema = z.object({
   email: z.string().min(1, "Required"),
   name: z.string().min(1, "Required"),
   phone: z.string().min(1, "Required"),
+  avatar: z.any().refine((file) => file instanceof File, {
+    message: "Avatar is required",
+  }),
 });
 
 export const Profile = () => {
@@ -43,7 +46,7 @@ export const Profile = () => {
               <InputPhoto
                 label="Avatar"
                 registration={register("avatar", {
-                  // required: "Please select your avatar",
+                  required: "Please select your avatar",
                 })}
                 error={errors.avatar}
                 name="avatar"
