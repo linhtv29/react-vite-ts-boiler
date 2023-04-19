@@ -33,11 +33,6 @@ const clientMenus = [
         title: "Courses List",
         icon: BookOpenIcon,
       },
-      {
-        to: "courses/course2",
-        title: "Course2",
-        icon: BookOpenIcon,
-      },
     ],
   },
 ];
@@ -59,11 +54,6 @@ const adminMenus = [
       {
         to: "courses",
         title: "Courses List",
-        icon: BookOpenIcon,
-      },
-      {
-        to: "courses/course2",
-        title: "Quiz List",
         icon: BookOpenIcon,
       },
     ],

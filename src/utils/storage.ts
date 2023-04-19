@@ -1,4 +1,4 @@
-const storagePrefix = 'base_react_';
+const storagePrefix = 'test';
 
 const storage = {
   getToken: () => {
