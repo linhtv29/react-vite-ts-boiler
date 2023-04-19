@@ -56,7 +56,7 @@ export const InputPhoto = (props: InputProps) => {
         accept="image/png, image/jpeg"
       />
       <img
-        src={photoPreview ? photoPreview : "src/assets/image/blank-avatar.jpg"}
+        src={photoPreview ? photoPreview : "src/assets/image/blank-avatar.png"}
         className="w-48 ml-5 my-3"
         alt="avatar"
       />
