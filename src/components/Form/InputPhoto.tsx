@@ -63,7 +63,7 @@ export const InputPhoto = (props: InputProps) => {
       <Button
         type="button"
         size="sm"
-        className="ml-5 md:w-36 bg-white text-sky-800 border-sky-800"
+        className="!text-sky-800 ml-5 md:w-36 bg-white border-sky-800"
       >
         <label className="cursor-pointer" htmlFor={`${label}-photo`}>
           Update avatar

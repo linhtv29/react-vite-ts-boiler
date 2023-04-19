@@ -1,5 +1,6 @@
 import React from "react";
 import { Table } from "@/components/Elements/Table";
+import { Link } from "react-router-dom";
 
 type CoursesList = {
   id: string;
@@ -24,6 +25,9 @@ export const CoursesList = () => {
           {
             title: "Id",
             field: "id",
+            Cell({ entry: { id } }) {
+            return <Link to={`${id}`}>{id}</Link>;
+          },
           },
           {
             title: "Title",

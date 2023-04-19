@@ -7,14 +7,14 @@ import {
   ChevronDownIcon,
 } from "@heroicons/react/24/solid";
 import { Fragment } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface NavbarProps {
   toggleSideMenu: () => void;
 }
 
 const links = [
-  { href: "/my-profile", label: "My profile" },
+  { href: "profile", label: "My profile" },
   { href: "", label: "Logout" },
 ];
 const Navbar = (props: NavbarProps) => {
@@ -24,7 +24,7 @@ const Navbar = (props: NavbarProps) => {
   const logout = () => {
     localStorage.setItem("email", "");
     navigate("/login");
-  }
+  };
   return (
     <div className="px-3 bg-sky-800 text-white absolute top-0 left-0 w-full">
       <div className="w-full h-14 flex items-center justify-between m-auto">
@@ -64,7 +64,7 @@ const Navbar = (props: NavbarProps) => {
                             ? "bg-sky-500 text-white"
                             : "bg-white text-black"
                         } cursor-pointer inline-flex w-full px-2 py-2 rounded`}
-                        onClick={() => logout() }
+                        onClick={() => logout()}
                       >
                         <UsersIcon className="h-6 w-6" />
                         <span className="ml-1">{link.label}</span>
@@ -74,7 +74,8 @@ const Navbar = (props: NavbarProps) => {
                 ) : (
                   <Menu.Item key={link.href} as={Fragment}>
                     {({ active }) => (
-                      <div
+                      <Link
+                        to={link.href}
                         className={`${
                           active
                             ? "bg-sky-500 text-white"
@@ -83,7 +84,7 @@ const Navbar = (props: NavbarProps) => {
                       >
                         <UsersIcon className="h-6 w-6" />
                         <span className="ml-1">{link.label}</span>
-                      </div>
+                      </Link>
                     )}
                   </Menu.Item>
                 )
