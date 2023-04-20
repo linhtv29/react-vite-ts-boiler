@@ -4,9 +4,8 @@ import { API_URL } from '@/config';
 import { useNotificationStore } from '@/stores/notifications';
 import storage from '@/utils/storage';
 
-function authRequestInterceptor(config: AxiosRequestConfig) {
+function authRequestInterceptor(config: InternalAxiosRequestConfig) : InternalAxiosRequestConfig {
   const token = storage.getToken();
-  if(!config.headers) return
   if (token) {
     config.headers.authorization = `${token}`;
   }

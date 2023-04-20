@@ -1,9 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as React from 'react';
-import { useForm, UseFormReturn, SubmitHandler, UseFormProps } from 'react-hook-form';
+import { useForm, UseFormReturn, SubmitHandler, UseFormProps, FieldValues } from 'react-hook-form';
 import { ZodType, ZodTypeDef } from 'zod';
 
-type FormProps<TFormValues, Schema> = {
+type FormProps<TFormValues extends FieldValues, Schema> = {
   className?: string;
   onSubmit: SubmitHandler<TFormValues>;
   children: (methods: UseFormReturn<TFormValues>) => React.ReactNode;
