@@ -3,6 +3,9 @@ import {
   UserIcon,
   BookOpenIcon,
   ChevronUpIcon,
+  UsersIcon,
+  Cog6ToothIcon,
+  AdjustmentsHorizontalIcon,
 } from "@heroicons/react/24/solid";
 import { Disclosure, Transition } from "@headlessui/react";
 import { NavLink, useLocation } from "react-router-dom";
@@ -11,7 +14,7 @@ type SideMenuProps = {
   isOpenSideMenu: boolean;
 };
 
-type RouteType = Record<string, any>
+type RouteType = Record<string, any>;
 const clientMenus = [
   {
     to: "",
@@ -46,6 +49,22 @@ const adminMenus = [
     to: "profile",
     title: "Profile",
     icon: UserIcon,
+  },
+  {
+    title: "Users Manager",
+    icon: Cog6ToothIcon,
+    children: [
+      {
+        to: "users/list",
+        title: "Users List",
+        icon: UsersIcon,
+      },
+      {
+        to: "users/role",
+        title: "Role Settings",
+        icon: AdjustmentsHorizontalIcon,
+      },
+    ],
   },
   {
     title: "Courses",

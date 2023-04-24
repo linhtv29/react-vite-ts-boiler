@@ -5,6 +5,7 @@ import { FieldWrapper, FieldWrapperPassThroughProps } from "./FieldWrapper";
 import { useState } from "react";
 import { Button } from "../Elements/Button";
 import { ProfileValues } from "@/features/profile/routes";
+import BlankAvatar from "@/assets/image/blank-avatar.png"
 
 type InputProps = FieldWrapperPassThroughProps & {
   className?: string;
@@ -56,7 +57,7 @@ export const InputPhoto = (props: InputProps) => {
         accept="image/png, image/jpeg"
       />
       <img
-        src={photoPreview ? photoPreview : "src/assets/image/blank-avatar.png"}
+        src={photoPreview ? photoPreview : BlankAvatar}
         className="w-48 ml-5 my-3"
         alt="avatar"
       />

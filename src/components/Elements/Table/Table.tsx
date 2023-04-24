@@ -27,13 +27,13 @@ export const Table = <Entry extends { id: string }>({ data, columns }: TableProp
         <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
           <div className="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
             <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+              <thead className="bg-sky-100">
                 <tr>
                   {columns.map((column, index) => (
                     <th
                       key={column.title + index}
                       scope="col"
-                      className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+                      className="px-6 py-3 min-w-[150px] text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                     >
                       {column.title}
                     </th>
@@ -42,7 +42,7 @@ export const Table = <Entry extends { id: string }>({ data, columns }: TableProp
               </thead>
               <tbody>
                 {data.map((entry, entryIndex) => (
-                  <tr key={entry?.id || entryIndex} className="odd:bg-white even:bg-gray-100">
+                  <tr key={entry?.id || entryIndex} className="odd:bg-white even:bg-sky-50">
                     {columns.map(({ Cell, field, title }, columnIndex) => (
                       <td
                         key={title + columnIndex}
