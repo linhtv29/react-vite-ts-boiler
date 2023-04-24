@@ -25,18 +25,22 @@ const Permissions: PermissionType[] = [
     permissions: [
       {
         label: "View User",
+        name: "View_User",
         value: 0,
       },
       {
         label: "Create User",
+        name: "Create_User",
         value: 1,
       },
       {
         label: "Edit User",
+        name: "Edit_User",
         value: 2,
       },
       {
         label: "Delete User",
+        name: "Delete_User",
         value: 3,
       },
     ],
@@ -46,18 +50,22 @@ const Permissions: PermissionType[] = [
     permissions: [
       {
         label: "View Role",
+        name: "View_Role",
         value: 0,
       },
       {
         label: "Create Role",
+        name: "Create_Role",
         value: 1,
       },
       {
         label: "Edit Role",
+        name: "Edit_Role",
         value: 2,
       },
       {
         label: "Delete Role",
+        name: "Delete_Role",
         value: 3,
       },
     ],
@@ -67,18 +75,22 @@ const Permissions: PermissionType[] = [
     permissions: [
       {
         label: "View Post",
+        name: "View_Post",
         value: 0,
       },
       {
         label: "Create Post",
+        name: "Create_Post",
         value: 1,
       },
       {
         label: "Edit Post",
+        name: "Edit_Post",
         value: 2,
       },
       {
         label: "Delete Post",
+        name: "Delete_Post",
         value: 3,
       },
     ],

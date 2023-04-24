@@ -11,18 +11,42 @@ type PermissionBlockProps = {
 export const PermissionBlock = (props: PermissionBlockProps) => {
   const { name, options, className } = props;
   const [isCheckAll, setIsCheckAll] = useState(false);
-	const [permissionData, setPermissionData] = useState(options.map(option => {
-		return {
-			name: option.label,
-			isChecked: false
-		}
-	}))
+  const [permissionData, setPermissionData] = useState(
+    options.map((option) => {
+      return {
+        name: option.name,
+        label: option.label,
+        isChecked: false,
+      };
+    })
+  );
 
   const handleCheckAll = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, checked } = e.target;
+    const { checked } = e.target;
+    setIsCheckAll(checked);
+    setPermissionData(
+      permissionData.map((item) => {
+        return {
+          ...item,
+          isChecked: checked,
+        };
+      })
+    );
   };
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, checked } = e.target;
+    const newData = permissionData.map((item) => {
+      if (item.name === id) {
+        return {
+          ...item,
+          isChecked: checked,
+        };
+      }
+      return item;
+    });
+    setPermissionData(newData);
+    const checkAll = newData.every((item) => item.isChecked == true);
+    setIsCheckAll(checkAll);
   };
 
   return (
@@ -30,7 +54,13 @@ export const PermissionBlock = (props: PermissionBlockProps) => {
       <div className="flex items-center justify-between border-b border-gray-400">
         <div className="text-lg font-bold">{name}</div>
         <div className="flex">
-          <input type="checkbox" name={name} id={`${name}-all`} onChange={e => handleCheckAll(e)} />
+          <input
+            type="checkbox"
+            name={name}
+            id={`${name}-all`}
+            checked={isCheckAll}
+            onChange={(e) => handleCheckAll(e)}
+          />
           <label className="ml-1" htmlFor={`${name}-all`}>
             Check all
           </label>
@@ -42,13 +72,13 @@ export const PermissionBlock = (props: PermissionBlockProps) => {
             <input
               type="checkbox"
               name={`${name}-group`}
-              id={`item-${permission.name}`}
+              id={permission.name}
               // value={permission.value}
               onChange={(e) => handleCheck(e)}
-							checked={permission.isChecked}
+              checked={permission.isChecked}
             />
-            <label className="ml-1" htmlFor={`item-${permission.name}`}>
-              {permission.name}
+            <label className="ml-1" htmlFor={permission.name}>
+              {permission.label}
             </label>
           </div>
         ))}
